@@ -13,13 +13,13 @@ from backend.services.chat import Chat
 
 app = FastAPI()
 
-@app.post("/chat/ask/{query}", response_model=str)
-def create_exercise(hero: Exercise, session: SessionDep):
-    Chat.
-    return 
+@app.post("/chat/ask/{userquery}", response_model=str)
+def create_exercise(hero: userquery, session: SessionDep):
+    response =Chat.chat_with_llm(userquery)
+    return response
 
 
-@app.get("/exercise/", response_model=list[Exercise])
+@app.get("/history/", response_model=list[Exercise])
 def read_exercise(
     session: SessionDep,
     offset: int = 0,

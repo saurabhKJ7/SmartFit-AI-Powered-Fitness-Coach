@@ -1,0 +1,25 @@
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_openai import OpenAIEmbeddings
+
+from langchain_community.vectorstores import FAISS
+
+
+file_path = "./data/"
+loader = PyPDFLoader(file_path)
+
+docs = loader.load()
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+texts = text_splitter.split_text(docs)
+
+embeddings = OpenAIEmbeddings(
+    model="text-embedding-3-large",
+)
+embeddings.embed_query(texts)
+
+vector_store = FAISS(
+    embedding_function=embeddings,
+)
+
+
+

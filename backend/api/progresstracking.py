@@ -53,7 +53,7 @@ def read_progress(
     return heroes
 
 
-@app.get("/exercise/{progress_id}", response_model=Progress)
+@app.get("/progress/{progress_id}", response_model=Progress)
 def read_progress(progress_id: int, session: SessionDep):
     hero = session.get(Progress, progress_id)
     if not hero:
@@ -73,8 +73,8 @@ def update_progress(progress_id: int, hero: Progress, session: SessionDep):
     session.refresh(hero_db)
     return hero_db
 
-@app.delete("/exercise/{progress_id}")
-def delete_nutrition(progress_id: int, session: SessionDep):
+@app.delete("/progress/{progress_id}")
+def delete_progress(progress_id: int, session: SessionDep):
     hero = session.get(Progress, progress_id)
     if not hero:
         raise HTTPException(status_code=404, detail="Progress not found")
